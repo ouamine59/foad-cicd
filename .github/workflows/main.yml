@@ -41,7 +41,7 @@ jobs:
         run: |
           rm -rf foad-cicd/api/public || true
           mkdir -p foad-cicd/api/public
-          ls -la foad-cicd/api  # Vérifiez que le dossier public existe
+          ls -la foad-cicd/api  
           mv foad-cicd/front/dist/* foad-cicd/api/public/
 
       - name: Verify files in API public
@@ -51,7 +51,7 @@ jobs:
         run: sudo apt-get install -y zip
 
       - name: Create ZIP file
-        run: zip -r my-project.zip .  # Crée un fichier ZIP contenant tout le dépôt
+        run: zip -r my-project.zip .  
 
       - name: Upload ZIP as artifact
         uses: actions/upload-artifact@v3
