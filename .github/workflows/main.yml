@@ -1,0 +1,56 @@
+name: Deploy to zip
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - name: Checkout code
+        uses: actions/checkout@v3
+      # 1. Installer Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: |
+          cd api
+          npm install
+
+      - name: Install dependencies and build
+        run: |
+          cd front
+          npm install
+          npm run build
+      - name: move dist to public
+        run : |
+          rm -rf api/public  
+          mkdir -p api/public
+          mv front/dist/* api/public/
+      - name: build backend
+        run: |
+          cd api
+          npm install
+        #  nohup npx ts-node server.ts &
+      - name: Checkout repository
+        uses: actions/checkout@v3  # Spécification de la version
+
+      - name: Install zip utility
+        run: sudo apt-get install -y zip
+
+      - name: Create ZIP file
+        run: zip -r my-project.zip .  # Crée un fichier ZIP contenant tout le dépôt
+
+      - name: Upload ZIP as artifact
+        uses: actions/upload-artifact@v3  # Spécification de la version
+        with:
+          name: my-project-zip
+          path: my-project.zip
+
