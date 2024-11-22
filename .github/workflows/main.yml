@@ -19,14 +19,6 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Debug project structure
-        run: |
-          echo "Root directory:"
-          ls -la
-          echo "API directory:"
-          ls -la foad-cicd/api || echo "API directory not found"
-          echo "Front directory:"
-          ls -la foad-cicd/front || echo "Front directory not found"
 
       - name: Install API dependencies
         run: |
@@ -44,11 +36,6 @@ jobs:
           rm -rf foad-cicd/api/public
           mkdir -p foad-cicd/api/public
           mv foad-cicd/front/dist/* foad-cicd/api/public/
-
-      - name: Build backend
-        run: |
-          cd foad-cicd/api
-          npm run build  # Remplacez par votre commande de build si nécessaire
 
       - name: Install zip utility
         run: sudo apt-get install -y zip
