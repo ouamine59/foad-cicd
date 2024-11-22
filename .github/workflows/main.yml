@@ -19,6 +19,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+      - name: Debug project structure
+        run: |
+          ls -la
+          ls -la front  
       - name: Install dependencies
         run: |
           cd api
