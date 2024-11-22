@@ -24,9 +24,9 @@ jobs:
           echo "Root directory:"
           ls -la
           echo "API directory:"
-          ls -la api || echo "API directory not found"
+          ls -la foad-cicd/api || echo "API directory not found"
           echo "Front directory:"
-          ls -la front || echo "Front directory not found"
+          ls -la foad-cicd/front || echo "Front directory not found"
 
       - name: Install API dependencies
         run: |
@@ -35,19 +35,19 @@ jobs:
 
       - name: Install Frontend dependencies and build
         run: |
-          cd front
+          cd foad-cicd/front
           npm install
           npm run build
 
       - name: Move frontend dist to API public
         run: |
-          rm -rf api/public
-          mkdir -p api/public
-          mv front/dist/* api/public/
+          rm -rf foad-cicd/api/public
+          mkdir -p foad-cicd/api/public
+          mv foad-cicd/front/dist/* foad-cicd/api/public/
 
       - name: Build backend
         run: |
-          cd api
+          cd foad-cicd/api
           npm run build  # Remplacez par votre commande de build si nécessaire
 
       - name: Install zip utility
