@@ -19,7 +19,6 @@ jobs:
         with:
           node-version: '18'
 
-
       - name: Install API dependencies
         run: |
           cd foad-cicd/api
@@ -31,11 +30,22 @@ jobs:
           npm install
           npm run build
 
+      - name: Debug before moving dist
+        run: |
+          echo "API directory:"
+          ls -la foad-cicd/api
+          echo "Front dist directory:"
+          ls -la foad-cicd/front/dist
+
       - name: Move frontend dist to API public
         run: |
-          rm -rf foad-cicd/api/public
+          rm -rf foad-cicd/api/public || true
           mkdir -p foad-cicd/api/public
+          ls -la foad-cicd/api  # Vérifiez que le dossier public existe
           mv foad-cicd/front/dist/* foad-cicd/api/public/
+
+      - name: Verify files in API public
+        run: ls -la foad-cicd/api/public
 
       - name: Install zip utility
         run: sudo apt-get install -y zip
