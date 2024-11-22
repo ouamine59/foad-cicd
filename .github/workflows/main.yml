@@ -30,7 +30,7 @@ jobs:
 
       - name: Install API dependencies
         run: |
-          cd api
+          cd foad-cicd/api
           npm install
 
       - name: Install Frontend dependencies and build
